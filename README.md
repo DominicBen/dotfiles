@@ -2,9 +2,9 @@
 
 How to install
 
-git init --bare $HOME/.dotfiles
-alias config='/usr/bin/git --git-dir=$HOME/dotfiles/ --work-tree=$HOME' (add this alias to .bashrc)
+git clone --bare https://github.com/DominicBen/dotfiles.git $HOME/.dotfiles
+rm ~/.bashrc
+/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME checkout
+bash
 config config --local status.showUntrackedFiles no
-config 
 
-/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME remote add origin https://github.com/DominicBen/dotfiles.git
