@@ -1,4 +1,7 @@
-sudo apt install -y curl git neovim zsh ranger neofetch
+sudo apt install -y curl neovim zsh ranger neofetch
+
+sudo apt install -y git
+git config --global credential.helper store
 
 # oh-my-zsh installation
 sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
