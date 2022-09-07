@@ -92,6 +92,8 @@ plugins=(
 	copypath
 	dirhistory
 	zsh-syntax-highlighting
+	web-search
+	dirhistory
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -123,7 +125,7 @@ source $ZSH/oh-my-zsh.sh
 
 # ALL of Doms Shit
 export EDITOR=nvim || export EDITOR=vim
-alias zshconfig="sudo $EDITOR ~/.zshrc"
+alias zshconfig="$EDITOR ~/.zshrc"
 alias ohmyzsh="sudo $EDITOR ~/.oh-my-zsh"
 alias la='ls -lha'
 alias df='df -h'
@@ -133,6 +135,7 @@ alias yh='yt-dlp --continue --no-check-certificate --format=bestvideo+bestaudio 
 alias yd='yt-dlp --continue --no-check-certificate --format=bestvideo+bestaudio --exec="ffmpeg -i {} -c:v prores_ks -profile:v 1 -vf fps=25/1 -pix_fmt yuv422p -c:a pcm_s16le {}.mov && rm {}"'
 alias ya='yt-dlp --continue --no-check-certificate --format=bestaudio -x --audio-format wav'
 alias config='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME' 
+alias update='sudo apt update && sudo apt upgrade'
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
