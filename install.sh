@@ -1,4 +1,4 @@
-sudo apt install -y curl neovim zsh ranger neofetch
+sudo apt install -y curl neovim zsh ranger neofetch tmux
 
 sudo apt install -y git
 git config --global credential.helper store
