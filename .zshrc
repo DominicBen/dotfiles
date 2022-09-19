@@ -127,6 +127,7 @@ source $ZSH/oh-my-zsh.sh
 
 # ALL of Doms Shit
 export EDITOR=nvim || export EDITOR=vim
+alias installconfig="$EDITOR ~/install.sh"
 alias zshconfig="$EDITOR ~/.zshrc"
 alias ohmyzsh="sudo $EDITOR ~/.oh-my-zsh"
 alias la='ls -lha'
