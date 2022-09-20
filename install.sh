@@ -1,4 +1,4 @@
-sudo apt install -y curl neovim zsh nnn neofetch tmux code
+sudo apt install -y curl neovim zsh nnn neofetch tmux code tlp htop nvtop intel-gpu-tools
 
 sudo apt install gnome-tweaks -y
 
@@ -15,6 +15,7 @@ git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$
 sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 
+git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 
 
 # Other things to manually install
