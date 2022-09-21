@@ -14,9 +14,14 @@ git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$
 #Nvim Install
 sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+sudo apt install exuberant-ctags
 
+#Tmux Install
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 
+#nvm Install
+
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash
 
 # Other things to manually install
 # Conda - Python Package Manager
