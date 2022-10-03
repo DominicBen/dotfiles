@@ -1,8 +1,15 @@
 #Prestart commands
-case $- in *i*)
-    [ -z "$TMUX" ] && exec tmux
-esac
-
+#case $- in *i*)
+#    [ -z "$TMUX" ] && exec tmux
+#esac
+if [[ -z "$TMUX" ]] ;then
+    ID="$( tmux ls | grep -vm1 attached | cut -d: -f1 )" # get the id of a deattached session
+    if [[ -z "$ID" ]] ;then # if not available create a new one
+        exec tmux
+    else
+        tmux attach-session -t "$ID" # if available attach to it
+    fi
+fi
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
@@ -32,7 +39,6 @@ plugins=(
 	dirhistory
 	zsh-syntax-highlighting
 	web-search
-	dirhistory
 )
 
 source $ZSH/oh-my-zsh.sh
