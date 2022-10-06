@@ -2,7 +2,7 @@ echo -n "Install for a Desktop Enviorment?"
 read x
 
 sudo apt install -y git curl neovim zsh nnn neofetch tmux htop -y
-if [ $x == 1 ]; then
+if [ $x -eq 1 ]; then
 sudo apt install code tlp nvtop intel-gpu-tools gnome-tweaks -y
 fi
 
@@ -25,7 +25,7 @@ git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash
 
 # X settings
-if [ $x == 1 ]; then
+if [ $x -eq 1 ]; then
 xset -dpms
 xset s noblank
 fi
