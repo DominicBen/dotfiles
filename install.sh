@@ -7,6 +7,7 @@ sudo apt install code tlp nvtop intel-gpu-tools gnome-tweaks -y
 fi
 
 git config --global credential.helper store
+/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME config --local status.showUntrackedFiles no
 
 # oh-my-zsh installation
 sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
