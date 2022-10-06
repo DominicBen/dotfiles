@@ -44,7 +44,10 @@ plugins=(
 source $ZSH/oh-my-zsh.sh
 # ALL of Doms Shit
 #Editors
-
+# Dont blank screen on start
+xset s noblank
+xset -dpms
+#Alias
 export EDITOR=nvim || export EDITOR=vim
 alias nv='nvim'
 alias installconfig="$EDITOR ~/install.sh"
@@ -61,6 +64,7 @@ alias yd='yt-dlp --continue --no-check-certificate --format=bestvideo+bestaudio 
 alias ya='yt-dlp --continue --no-check-certificate --format=bestaudio -x --audio-format wav'
 alias config='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME' 
 alias update='sudo apt update && sudo apt upgrade'
+bindkey '^ ' autosuggest-accept
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
