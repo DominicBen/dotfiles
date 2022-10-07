@@ -1,7 +1,7 @@
 echo -n "Install for a Desktop Enviorment?"
 read x
 
-sudo apt install -y git curl neovim zsh nnn neofetch tmux htop -y
+sudo apt install -y git curl neovim zsh nnn neofetch tmux htop unzip -y
 if [ $x -eq 1 ]; then
 sudo apt install code tlp nvtop intel-gpu-tools gnome-tweaks -y
 fi
