@@ -1,12 +1,13 @@
 echo -n "Install for a Desktop Enviorment?"
 read x
 
-sudo apt install -y git curl neovim zsh nnn neofetch tmux htop -y
-if [ $x == 1 ]; then
+sudo apt install -y git curl neovim zsh nnn neofetch tmux htop unzip -y
+if [ $x -eq 1 ]; then
 sudo apt install code tlp nvtop intel-gpu-tools gnome-tweaks -y
 fi
 
 git config --global credential.helper store
+/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME config --local status.showUntrackedFiles no
 
 # oh-my-zsh installation
 sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
@@ -25,7 +26,7 @@ git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash
 
 # X settings
-if [ $x == 1 ]; then
+if [ $x -eq 1 ]; then
 xset -dpms
 xset s noblank
 fi
