@@ -16,7 +16,7 @@ keymap.set('n', 'te', ':tabedit<Return>', {silent = true})
 -- Split window
 keymap.set('n', 'ss', ':split<Return><C-w>w', {silent = true})
 keymap.set('n', 'sv', ':vsplit<Return><C-w>w', {silent = true})
---Move Indow
+--Move between windows
 keymap.set('n', '<Space>', '<C-w>w')
 keymap.set('', 's<left>', '<C-w>h')
 keymap.set('', 's<up>', '<C-w>k')
@@ -28,8 +28,8 @@ keymap.set('', 'sj', '<C-w>j')
 keymap.set('', 'sl', '<C-w>l')
 
 -- Resize Window
-keymap.set('n','<C-w><left>', '<C-w><')
-keymap.set('n','<C-w><right>','<C-w>>')
+keymap.set('n','<C-w><left>', '<C-w>>')
+keymap.set('n','<C-w><right>','<C-w><')
 keymap.set('n','<C-w><up>', '<C-w>+')
 keymap.set('n','<C-w><down>', '<C-w>-')
 
@@ -47,3 +47,5 @@ vim.keymap.set('v', '<A-j>', ':MoveBlock(1)<CR>', opts)
 vim.keymap.set('v', '<A-k>', ':MoveBlock(-1)<CR>', opts)
 vim.keymap.set('v', '<A-h>', ':MoveHBlock(-1)<CR>', opts)
 vim.keymap.set('v', '<A-l>', ':MoveHBlock(1)<CR>', opts)
+
+vim.keymap.set('', '<A-/>', ':CommentToggle<CR>',opts)

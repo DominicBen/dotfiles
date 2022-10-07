@@ -45,8 +45,8 @@ source $ZSH/oh-my-zsh.sh
 # ALL of Doms Shit
 #Editors
 # Dont blank screen on start
-xset s noblank
-xset -dpms
+#xset s noblank
+#xset -dpms
 #Alias
 export EDITOR=nvim || export EDITOR=vim
 alias nv='nvim'

@@ -38,10 +38,10 @@ packer.startup(function(use)
   use 'akinsho/nvim-bufferline.lua'
   use 'norcalli/nvim-colorizer.lua' -- Adds colors to color codes
   use 'jose-elias-alvarez/null-ls.nvim'
-  
   use 'MunifTanjim/prettier.nvim'
   use 'lewis6991/gitsigns.nvim'
   use 'dinhhuy258/git.nvim'
+  use 'terrortylor/nvim-comment'
 end)
 
 
