@@ -6,6 +6,9 @@ if [ $x -eq 1 ]; then
 sudo apt install code tlp nvtop intel-gpu-tools gnome-tweaks -y
 fi
 
+git config --global user.name "bdominic00@gmail.com"
+git config --global user.email bdominic00@gmail.com
+
 git config --global credential.helper store
 /usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME config --local status.showUntrackedFiles no
 

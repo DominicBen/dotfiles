@@ -1,7 +1,4 @@
 #Prestart commands
-#case $- in *i*)
-#    [ -z "$TMUX" ] && exec tmux
-#esac
 if [[ -z "$TMUX" ]] ;then
     ID="$( tmux ls | grep -vm1 attached | cut -d: -f1 )" # get the id of a deattached session
     if [[ -z "$ID" ]] ;then # if not available create a new one
@@ -11,24 +8,17 @@ if [[ -z "$TMUX" ]] ;then
     fi
 fi
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
-# Initialization code that may require console input (password prompts, [y/n]
-# confirmations, etc.) must go above this block; everything else may go below.
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
-
-# If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # set PATH so it includes user's private ~/.local/bin if it exists
 if [ -d "$HOME/.local/bin" ] ; then
     PATH="$HOME/.local/bin:$PATH"
 fi
 
-
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
-
 ZSH_THEME="powerlevel10k/powerlevel10k"
 
 plugins=(
@@ -48,6 +38,8 @@ source $ZSH/oh-my-zsh.sh
 #xset s noblank
 #xset -dpms
 #Alias
+#Fixes ugly green blocks around directories
+export LS_COLORS="$LS_COLORS:ow=1;34:tw=1;34:"
 export EDITOR=nvim || export EDITOR=vim
 alias nv='nvim'
 alias installconfig="$EDITOR ~/install.sh"
@@ -65,14 +57,9 @@ alias ya='yt-dlp --continue --no-check-certificate --format=bestaudio -x --audio
 alias config='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME' 
 alias update='sudo apt update && sudo apt upgrade'
 bindkey '^ ' autosuggest-accept
-
+# P10K Customization file
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-# >>> nvm initialize >>>
-export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-# <<< nvm initialize <<<
-
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
 __conda_setup="$('/home/golgi/anaconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
