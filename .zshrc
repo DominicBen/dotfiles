@@ -1,12 +1,12 @@
 #Prestart commands
-if [[ -z "$TMUX" ]] ;then
-    ID="$( tmux ls | grep -vm1 attached | cut -d: -f1 )" # get the id of a deattached session
-    if [[ -z "$ID" ]] ;then # if not available create a new one
-        exec tmux
-    else
-        tmux attach-session -t "$ID" # if available attach to it
-    fi
-fi
+# if [[ -z "$TMUX" ]] ;then
+#     ID="$( tmux ls | grep -vm1 attached | cut -d: -f1 )" # get the id of a deattached session
+#     if [[ -z "$ID" ]] ;then # if not available create a new one
+#         exec tmux
+#     else
+#         tmux attach-session -t "$ID" # if available attach to it
+#     fi
+# fi
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
@@ -37,8 +37,9 @@ source $ZSH/oh-my-zsh.sh
 # Dont blank screen on start
 #xset s noblank
 #xset -dpms
-#Alias
 #Fixes ugly green blocks around directories
+#
+#Alias
 export LS_COLORS="$LS_COLORS:ow=1;34:tw=1;34:"
 export EDITOR=nvim || export EDITOR=vim
 alias nv='nvim'
@@ -56,6 +57,7 @@ alias yd='yt-dlp --continue --no-check-certificate --format=bestvideo+bestaudio 
 alias ya='yt-dlp --continue --no-check-certificate --format=bestaudio -x --audio-format wav'
 alias config='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME' 
 alias update='sudo apt update && sudo apt upgrade'
+# Keybindings
 bindkey '^ ' autosuggest-accept
 # P10K Customization file
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
@@ -76,6 +78,9 @@ unset __conda_setup
 # <<< conda initialize <<<
 
 
+# >>> NVM initialize >>>
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+# <<< NVM initialize <<<
+# 

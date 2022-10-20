@@ -72,3 +72,8 @@ require('lspconfig')['rust_analyzer'].setup{
 require('lspconfig')['clangd'].setup{
   filetypes = {"c","cpp","cc","h","objc","objcpp"}
 }
+-- configure yamlls ls:
+require('lspconfig')['yamlls'].setup {
+  on_attach = on_attach,
+  capabilities = capabilities,
+}
