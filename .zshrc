@@ -8,6 +8,12 @@ setopt histignorealldups sharehistory
 
 # Use emacs keybindings even if our EDITOR is set to vi
 bindkey -e
+# Enable forward word movement with Ctrl+Right Arrow
+bindkey '^[[1;5C' forward-word
+# Enable backward word movement with Ctrl+Left Arrow
+bindkey '^[[1;5D' backward-word
+# Enable backward word deletion with Ctrl+Backspace
+bindkey '^H' backward-kill-word
 
 # Keep 1000 lines of history within the shell and save it to ~/.zsh_history:
 HISTSIZE=1000
