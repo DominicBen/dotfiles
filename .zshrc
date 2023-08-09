@@ -1,9 +1,9 @@
 #PATH
 export PATH="$HOME/.local/bin:$PATH"
 #Plugins
-source /home/golgi/.zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source ~/.zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source ~/.zsh/plugins/git/git-prompt.sh
-source ~/.zsh/plugins/z/zsh-z.plugin.sh
+source ~/.zsh/plugins/zsh-z/zsh-z.plugin.zsh
 source ~/.zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 # Set up the prompt
 setopt PROMPT_SUBST
