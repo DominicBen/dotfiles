@@ -66,3 +66,4 @@ alias l='ls -CF'
 
 
 
+alias vim=nvim
