@@ -1,4 +1,13 @@
 # ==========================================
+# TMUX support
+# ==========================================
+# If ssh detected attach to existing tmux session or create new one
+# if command -v tmux &>/dev/null; then
+#   test -z "$TMUX" && exec tmux
+# fi
+
+
+# ==========================================
 # PATH Configuration
 # ==========================================
 export PATH="$HOME/.local/bin:$PATH"
@@ -11,7 +20,12 @@ source ~/.zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source ~/.zsh/plugins/git/git-prompt.sh
 source ~/.zsh/plugins/zsh-z/zsh-z.plugin.zsh
 source ~/.zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
-
+source ~/.zsh/plugins/zsh-autoswitch-virtualenv/autoswitch_virtualenv.plugin.zsh
+source ~/.zsh/plugins/zsh-history-substring-search/zsh-history-substring-search.zsh
+bindkey "$terminfo[kcuu1]" history-substring-search-up
+bindkey "$terminfo[kcud1]" history-substring-search-down
+bindkey -M emacs '^P' history-substring-search-up
+bindkey -M emacs '^N' history-substring-search-down
 # ==========================================
 # Prompt Configuration
 # ==========================================
@@ -55,13 +69,13 @@ bindkey '^[[1;5C' forward-word
 bindkey '^[[1;5D' backward-word
 # Enable Backward Word Deletion with Ctrl+Backspace
 bindkey '^H' backward-kill-word
-# Make Complete Suggestion Shift+Space
-bindkey '^@' autosuggest-accept
+# Make Complete Suggestion Shift+Tab
+bindkey '^[[Z' autosuggest-accept
 # ==========================================
 # Aliases
 # ==========================================
 # Git Configuration Alias
-alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
+#alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
 
 # LS Aliases
 #
@@ -88,7 +102,6 @@ alias python='python3'
 alias vim='nvim'
 alias nv='nvim'
 # Top alias
-alias top='btop'
 alias htop='btop'
 #lazy git
 alias lg='lazygit'
@@ -107,7 +120,8 @@ extract() {
     echo "File not found: $1"
   fi
 }
-
+alias matrix='cmatrix'
+alias clock='tty-clock'
 # ==========================================
 # Conda Initialization
 # ==========================================

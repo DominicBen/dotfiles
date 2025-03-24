@@ -1,0 +1,9 @@
+[user]
+	email = bdominic00@gmail.com
+	name = Dominic Benintendi
+[credential]
+	helper = store
+[safe]
+	directory = /media/nextcloud/OU/Research/Wilhelm/5G Project/SendAndReceive
+	directory = /media/nextcloud/OU/Research/Wilhelm/5G Project/SendAndReceive
+	directory = /media/nextcloud/OU/Research/Wilhelm/5G Project/LibreVNASniffer
