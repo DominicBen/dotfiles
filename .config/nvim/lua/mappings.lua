@@ -12,7 +12,7 @@ map("i", "jk", "<ESC>")
 
 -- Comment
 map("n", "<C-/>", "gcc", { desc = "toggle comment", remap = true })
-map("v", "<C-/>", "gc", { desc = "toggle comment", remap = true })-- Move line up (Alt+Up)
+map("v", "<C-/>", "gc", { desc = "toggle comment", remap = true }) -- Move line up (Alt+Up)
 -- Move line up (Alt+Up)
 map("n", "<M-Up>", ":m .-2<CR>==", { desc = "Move line up", remap = true })
 map("v", "<M-Up>", ":m '<-2<CR>gv=gv", { desc = "Move selection up", remap = true })
@@ -20,3 +20,45 @@ map("v", "<M-Up>", ":m '<-2<CR>gv=gv", { desc = "Move selection up", remap = tru
 -- Move line down (Alt+Down)
 map("n", "<M-Down>", ":m .+1<CR>==", { desc = "Move line down", remap = true })
 map("v", "<M-Down>", ":m '>+1<CR>gv=gv", { desc = "Move selectea down", remap = true })
+
+-- DAP (Debug Adapter Protocol) keymaps
+local opts = { noremap = true, silent = true }
+
+local dap = require "dap"
+local dapui = require "dapui"
+local dap_python = require "dap-python"
+
+-- Toggle breakpoint
+map("n", "<leader>db", function()
+  dap.toggle_breakpoint()
+end, { desc = "Toggle breakpoint" })
+
+-- Continue / Start debugging
+map("n", "<leader>dc", function()
+  dap.continue()
+end, { desc = "Continue or start debugging" })
+
+-- Step Over debugging
+map("n", "<leader>do", function()
+  dap.step_over()
+end, { desc = "Step over during debugging" })
+
+-- Step Into debugging
+map("n", "<leader>di", function()
+  dap.step_into()
+end, { desc = "Step into during debugging" })
+
+-- Step Out debugging
+map("n", "<leader>dO", function()
+  dap.step_out()
+end, { desc = "Step out during debugging" })
+
+-- Keymap to terminate debugging
+map("n", "<leader>dq", function()
+  require("dap").terminate()
+end, { desc = "Terminate debugging" })
+
+-- Toggle DAP UI
+map("n", "<leader>du", function()
+  dapui.toggle()
+end, { desc = "Toggle DAP UI" })

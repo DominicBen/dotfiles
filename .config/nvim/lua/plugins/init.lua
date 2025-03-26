@@ -1,7 +1,46 @@
 return {
+
+  {
+    "rcarriga/nvim-dap-ui",
+    dependencies = "mfussenegger/nvim-dap",
+    config = function()
+      local dap = require "dap"
+      local dapui = require "dapui"
+      dapui.setup()
+      dap.listeners.after.event_initialized["dapui_config"] = function()
+        dapui.open()
+      end
+      dap.listeners.before.event_terminated["dapui_config"] = function()
+        dapui.close()
+      end
+      dap.listeners.before.event_exited["dapui_config"] = function()
+        dapui.close()
+      end
+    end,
+  },
+  {
+    "mfussenegger/nvim-dap",
+    config = function(_, opts)
+      -- require("core.utils").load_mappings "dap"
+    end,
+  },
+  {
+    "mfussenegger/nvim-dap-python",
+    ft = "python",
+    dependencies = {
+      "mfussenegger/nvim-dap",
+      "rcarriga/nvim-dap-ui",
+      "nvim-neotest/nvim-nio",
+    },
+    config = function(_, opts)
+      local path = "~/.local/share/nvim/mason/packages/debugpy/venv/bin/python"
+      require("dap-python").setup(path)
+      -- require("core.utils").load_mappings "dap_python"
+    end,
+  },
   {
     "stevearc/conform.nvim",
-    -- event = 'BufWritePre', -- uncomment for format on save
+    event = "BufWritePre", -- uncomment for format on save
     opts = require "configs.conform",
   },
 
@@ -16,14 +55,7 @@ return {
     "mfussenegger/nvim-lint",
     event = { "BufReadPre", "BufNewFile" },
     config = function()
-      require("configs.lint")
-    end,
-  },
-  {
-    "stevearc/conform.nvim",
-    event = "BufWritePre",
-    config = function()
-      require("configs.conform")
+      require "configs.lint"
     end,
   },
   {
@@ -31,7 +63,7 @@ return {
     event = "VeryLazy",
     dependencies = { "nvim-lspconfig" },
     config = function()
-        require("configs.mason-lspconfig")
+      require "configs.mason-lspconfig"
     end,
   },
   {
@@ -39,7 +71,7 @@ return {
     event = "VeryLazy",
     dependencies = { "nvim-lint" },
     config = function()
-        require("configs.mason-lint")
+      require "configs.mason-lint"
     end,
   },
   -- {
