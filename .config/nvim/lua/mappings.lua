@@ -62,3 +62,19 @@ end, { desc = "Terminate debugging" })
 map("n", "<leader>du", function()
   dapui.toggle()
 end, { desc = "Toggle DAP UI" })
+-- This will cause nvim to close if NvimTree is the only active buffer
+vim.api.nvim_create_autocmd("BufEnter", {
+  nested = true,
+  callback = function()
+    local wins = vim.api.nvim_list_wins()
+    if #wins == 1 then
+      local bufname = vim.api.nvim_buf_get_name(0)
+      if bufname:match("NvimTree_") ~= nil then
+        vim.cmd("quit")
+      end
+    end
+  end,
+})
+
+
+

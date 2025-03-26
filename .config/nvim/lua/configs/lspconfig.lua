@@ -5,12 +5,16 @@ local lspconfig = require "lspconfig"
 
 lspconfig.servers = {
   "lua_ls",
+  "cssls",
   "pyright",
-  "ts_ls",
+  "html",
+  "marksman",
+  "ltex",
+
 }
 
 -- EXAMPLE
-local servers = { "html", "cssls", "pyright", "ts_ls" }
+local servers = lspconfig.servers
 local nvlsp = require "nvchad.configs.lspconfig"
 
 -- lsps with default config
