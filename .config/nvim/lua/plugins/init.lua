@@ -1,6 +1,22 @@
 return {
 
   {
+    "kndndrj/nvim-dbee",
+    lazy = false, -- ensure it's not lazy-loaded
+    dependencies = {
+      "MunifTanjim/nui.nvim",
+    },
+    build = function()
+      -- Install tries to automatically detect the install method.
+      -- if it fails, try calling it with one of these parameters:
+      --    "curl", "wget", "bitsadmin", "go"
+      require("dbee").install()
+    end,
+    config = function()
+      require("dbee").setup(--[[optional config]])
+    end,
+  },
+  {
     "rcarriga/nvim-dap-ui",
     dependencies = "mfussenegger/nvim-dap",
     config = function()
@@ -75,9 +91,9 @@ return {
     end,
   },
   {
-  	"nvim-treesitter/nvim-treesitter",
-  	opts = {
-  		ensure_installed = {
+    "nvim-treesitter/nvim-treesitter",
+    opts = {
+      ensure_installed = {
         "lua",
         "python",
         "javascript",
@@ -95,19 +111,19 @@ return {
         "go",
         "rust",
       },
-  	},
-   {
-    "nvim-tree/nvim-tree.lua",
-    lazy = false,  -- ensure it's not lazy-loaded
-    config = function()
-      require("nvim-tree").setup({
-        -- your existing setup options
-        hijack_cursor = true,
-        view = {
-          width = 30,
-        },
-      })
-    end,
+    },
+    {
+      "nvim-tree/nvim-tree.lua",
+      lazy = false, -- ensure it's not lazy-loaded
+      config = function()
+        require("nvim-tree").setup {
+          -- your existing setup options
+          hijack_cursor = true,
+          view = {
+            width = 30,
+          },
+        }
+      end,
+    },
   },
-  }
 }

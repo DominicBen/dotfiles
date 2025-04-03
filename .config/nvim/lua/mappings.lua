@@ -69,12 +69,19 @@ vim.api.nvim_create_autocmd("BufEnter", {
     local wins = vim.api.nvim_list_wins()
     if #wins == 1 then
       local bufname = vim.api.nvim_buf_get_name(0)
-      if bufname:match("NvimTree_") ~= nil then
-        vim.cmd("quit")
+      if bufname:match "NvimTree_" ~= nil then
+        vim.cmd "quit"
       end
     end
   end,
 })
 
-
-
+-- Prevent opening files in the toggleterm buffer
+vim.api.nvim_create_autocmd("BufWinEnter", {
+  callback = function()
+    local buftype = vim.api.nvim_buf_get_option(0, "buftype")
+    if buftype == "terminal" then
+      vim.cmd "wincmd p" -- switch to the previous window
+    end
+  end,
+})

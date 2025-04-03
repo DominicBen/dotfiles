@@ -9,8 +9,8 @@ lspconfig.servers = {
   "pyright",
   "html",
   "marksman",
-  "ltex",
-
+  "ts_ls",
+  "eslint",
 }
 
 -- EXAMPLE
