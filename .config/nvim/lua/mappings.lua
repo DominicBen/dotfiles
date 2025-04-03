@@ -13,7 +13,7 @@ map("i", "jk", "<ESC>")
 
 -- Comment
 map("n", "<C-/>", "gcc", { desc = "toggle comment", remap = true })
-map("v", "<C-/>", "gc", { desc = "toggle comment", remap = true })-- Move line up (Alt+Up)
+map("v", "<C-/>", "gc", { desc = "toggle comment", remap = true }) -- Move line up (Alt+Up)
 -- Move line up (Alt+Up)
 map("n", "<M-Up>", ":m .-2<CR>==", { desc = "Move line up", remap = true })
 map("v", "<M-Up>", ":m '<-2<CR>gv=gv", { desc = "Move selection up", remap = true })
@@ -21,6 +21,48 @@ map("v", "<M-Up>", ":m '<-2<CR>gv=gv", { desc = "Move selection up", remap = tru
 -- Move line down (Alt+Down)
 map("n", "<M-Down>", ":m .+1<CR>==", { desc = "Move line down", remap = true })
 map("v", "<M-Down>", ":m '>+1<CR>gv=gv", { desc = "Move selectea down", remap = true })
+
+-- DAP (Debug Adapter Protocol) keymaps
+local opts = { noremap = true, silent = true }
+
+local dap = require "dap"
+local dapui = require "dapui"
+local dap_python = require "dap-python"
+
+-- Toggle breakpoint
+map("n", "<leader>db", function()
+  dap.toggle_breakpoint()
+end, { desc = "Toggle breakpoint" })
+
+-- Continue / Start debugging
+map("n", "<leader>dc", function()
+  dap.continue()
+end, { desc = "Continue or start debugging" })
+
+-- Step Over debugging
+map("n", "<leader>do", function()
+  dap.step_over()
+end, { desc = "Step over during debugging" })
+
+-- Step Into debugging
+map("n", "<leader>di", function()
+  dap.step_into()
+end, { desc = "Step into during debugging" })
+
+-- Step Out debugging
+map("n", "<leader>dO", function()
+  dap.step_out()
+end, { desc = "Step out during debugging" })
+
+-- Keymap to terminate debugging
+map("n", "<leader>dq", function()
+  require("dap").terminate()
+end, { desc = "Terminate debugging" })
+
+-- Toggle DAP UI
+map("n", "<leader>du", function()
+  dapui.toggle()
+end, { desc = "Toggle DAP UI" })
 -- This will cause nvim to close if NvimTree is the only active buffer
 vim.api.nvim_create_autocmd("BufEnter", {
   nested = true,
@@ -28,12 +70,19 @@ vim.api.nvim_create_autocmd("BufEnter", {
     local wins = vim.api.nvim_list_wins()
     if #wins == 1 then
       local bufname = vim.api.nvim_buf_get_name(0)
-      if bufname:match("NvimTree_") ~= nil then
-        vim.cmd("quit")
+      if bufname:match "NvimTree_" ~= nil then
+        vim.cmd "quit"
       end
     end
   end,
 })
 
-
-
+-- Prevent opening files in the toggleterm buffer
+vim.api.nvim_create_autocmd("BufWinEnter", {
+  callback = function()
+    local buftype = vim.api.nvim_buf_get_option(0, "buftype")
+    if buftype == "terminal" then
+      vim.cmd "wincmd p" -- switch to the previous window
+    end
+  end,
+})
