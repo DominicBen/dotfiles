@@ -1,5 +1,6 @@
 require "nvchad.mappings"
 
+
 vim.opt.clipboard = ""
 
 -- add yours here
