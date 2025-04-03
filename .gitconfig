@@ -7,3 +7,5 @@
 	directory = /media/nextcloud/OU/Research/Wilhelm/5G Project/SendAndReceive
 	directory = /media/nextcloud/OU/Research/Wilhelm/5G Project/SendAndReceive
 	directory = /media/nextcloud/OU/Research/Wilhelm/5G Project/LibreVNASniffer
+[pull]
+	rebase = false
