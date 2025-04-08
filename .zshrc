@@ -11,6 +11,7 @@
 # PATH Configuration
 # ==========================================
 export PATH="$HOME/.local/bin:$PATH"
+export PATH="$PATH:/mnt/c/Users/DMAN/.wsl-tools"
 
 # ==========================================
 # Plugin Sourcing
