@@ -85,3 +85,9 @@ vim.api.nvim_create_autocmd("BufWinEnter", {
     end
   end,
 })
+vim.api.nvim_create_autocmd("TermOpen", {
+  pattern = "*",
+  callback = function()
+    vim.opt_local.buflisted = false
+  end,
+})
