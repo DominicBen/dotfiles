@@ -1,5 +1,23 @@
 return {
+  {
+    "zbirenbaum/copilot.lua",
+    event = "InsertEnter",
+    config = function()
+      require("copilot").setup {
+        suggestion = { enabled = false },
+        panel = { enabled = false },
+      }
+    end,
+  },
 
+  {
+    "zbirenbaum/copilot-cmp",
+    dependencies = { "copilot.lua" },
+    lazy = false,
+    config = function()
+      require("copilot_cmp").setup()
+    end,
+  },
   {
     "kndndrj/nvim-dbee",
     lazy = false, -- ensure it's not lazy-loaded
@@ -89,6 +107,32 @@ return {
     config = function()
       require "configs.mason-lint"
     end,
+  },
+  {
+    "hrsh7th/nvim-cmp",
+    dependencies = {
+      {
+        "zbirenbaum/copilot-cmp",
+        config = function()
+          require("copilot_cmp").setup()
+        end,
+      },
+    },
+    opts = {
+      sources = {
+        { name = "copilot", group_index = 2 },
+        { name = "nvim_lsp", group_index = 2 },
+        { name = "luasnip", group_index = 2 },
+        { name = "buffer", group_index = 2 },
+        { name = "nvim_lua", group_index = 2 },
+        { name = "path", group_index = 2 },
+        { name = "spell", group_index = 2 },
+        { name = "emoji", group_index = 2 },
+        { name = "treesitter", group_index = 2 },
+        { name = "calc", group_index = 2 },
+        { name = "git", group_index = 2 },
+      },
+    },
   },
   {
     "nvim-treesitter/nvim-treesitter",
