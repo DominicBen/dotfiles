@@ -1,5 +1,5 @@
 local conform = require "conform"
-local mason_conform = require "mason"
+local mason_conform = require "mason-conform"
 
 -- List of formatters to ignore during install
 local ignore_install = {

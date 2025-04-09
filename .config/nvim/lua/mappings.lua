@@ -1,6 +1,4 @@
 require "nvchad.mappings"
-
-vim.opt.clipboard = ""
 -- add yours here
 local map = vim.keymap.set
 map("n", ";", ":", { desc = "CMD enter command mode" })
@@ -61,32 +59,3 @@ end, { desc = "Terminate debugging" })
 map("n", "<leader>du", function()
   dapui.toggle()
 end, { desc = "Toggle DAP UI" })
--- This will cause nvim to close if NvimTree is the only active buffer
-vim.api.nvim_create_autocmd("BufEnter", {
-  nested = true,
-  callback = function()
-    local wins = vim.api.nvim_list_wins()
-    if #wins == 1 then
-      local bufname = vim.api.nvim_buf_get_name(0)
-      if bufname:match "NvimTree_" ~= nil then
-        vim.cmd "quit"
-      end
-    end
-  end,
-})
-
--- Prevent opening files in the toggleterm buffer
-vim.api.nvim_create_autocmd("BufWinEnter", {
-  callback = function()
-    local buftype = vim.api.nvim_buf_get_option(0, "buftype")
-    if buftype == "terminal" then
-      vim.cmd "wincmd p" -- switch to the previous window
-    end
-  end,
-})
-vim.api.nvim_create_autocmd("TermOpen", {
-  pattern = "*",
-  callback = function()
-    vim.opt_local.buflisted = false
-  end,
-})

@@ -12,12 +12,19 @@ return {
 
   {
     "zbirenbaum/copilot-cmp",
+    event = "InsertEnter",
     dependencies = { "copilot.lua" },
-    lazy = false,
     config = function()
       require("copilot_cmp").setup()
     end,
   },
+  {
+    "hrsh7th/nvim-cmp",
+    config = function()
+      require "configs.cmp"
+    end,
+  },
+
   {
     "kndndrj/nvim-dbee",
     lazy = false, -- ensure it's not lazy-loaded
@@ -93,6 +100,15 @@ return {
     end,
   },
   {
+    "zapling/mason-conform.nvim",
+    lazy = false,
+    dependencies = { "conform.nvim" },
+    config = function()
+      require "configs.mason-conform"
+    end,
+  },
+
+  {
     "williamboman/mason-lspconfig.nvim",
     event = "VeryLazy",
     dependencies = { "nvim-lspconfig" },
@@ -107,32 +123,6 @@ return {
     config = function()
       require "configs.mason-lint"
     end,
-  },
-  {
-    "hrsh7th/nvim-cmp",
-    dependencies = {
-      {
-        "zbirenbaum/copilot-cmp",
-        config = function()
-          require("copilot_cmp").setup()
-        end,
-      },
-    },
-    opts = {
-      sources = {
-        { name = "copilot", group_index = 2 },
-        { name = "nvim_lsp", group_index = 2 },
-        { name = "luasnip", group_index = 2 },
-        { name = "buffer", group_index = 2 },
-        { name = "nvim_lua", group_index = 2 },
-        { name = "path", group_index = 2 },
-        { name = "spell", group_index = 2 },
-        { name = "emoji", group_index = 2 },
-        { name = "treesitter", group_index = 2 },
-        { name = "calc", group_index = 2 },
-        { name = "git", group_index = 2 },
-      },
-    },
   },
   {
     "nvim-treesitter/nvim-treesitter",
@@ -156,18 +146,19 @@ return {
         "rust",
       },
     },
-    {
-      "nvim-tree/nvim-tree.lua",
-      lazy = false, -- ensure it's not lazy-loaded
-      config = function()
-        require("nvim-tree").setup {
-          -- your existing setup options
-          hijack_cursor = true,
-          view = {
-            width = 30,
-          },
-        }
-      end,
-    },
+  },
+  {
+    "nvim-tree/nvim-tree.lua",
+    lazy = false, -- ensure it's not lazy-loaded
+    config = function()
+      require "configs.tree"
+    end,
+  },
+  {
+    "windwp/nvim-ts-autotag",
+    ft = { "html", "xml", "javascript", "typescript", "javascriptreact", "typescriptreact", "svelte", "vue" },
+    config = function()
+      require("nvim-ts-autotag").setup()
+    end,
   },
 }

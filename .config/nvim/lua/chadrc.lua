@@ -14,16 +14,6 @@ M.base46 = {
   -- },
 }
 
-M.cmp = {
-  sources = {
-    { name = "copilot", group_index = 2 },
-    { name = "nvim_lsp" },
-    { name = "luasnip" },
-    { name = "buffer" },
-    { name = "path" },
-  },
-}
-
 -- M.nvdash = { load_on_startup = true }
 -- M.ui = {
 --       tabufline = {
