@@ -1,29 +1,33 @@
-local lint = package.loaded["lint"]
+local conform = require "conform"
+local mason_conform = require "mason"
 
--- List of linters to ignore during install
-local ignore_install = {}
+-- List of formatters to ignore during install
+local ignore_install = {
+  -- Example: "prettierd",
+}
 
--- Helper function to find if value is in table.
-local function table_contains(table, value)
-    for _, v in ipairs(table) do
-        if v == value then
-            return true
-        end
+-- Helper function to check if a table contains a value
+local function table_contains(tbl, value)
+  for _, v in ipairs(tbl) do
+    if v == value then
+      return true
     end
-    return false
+  end
+  return false
 end
 
--- Build a list of linters to install minus the ignored list.
-local all_linters = {}
-for _, v in pairs(lint.linters_by_ft) do
-    for _, linter in ipairs(v) do
-        if not table_contains(ignore_install, linter) then
-            table.insert(all_linters, linter)
-        end
+-- Build a list of formatters to install, minus the ignored ones
+local all_formatters = {}
+for _, formatters in pairs(conform.formatters_by_ft) do
+  for _, formatter in ipairs(formatters) do
+    if not table_contains(ignore_install, formatter) and not table_contains(all_formatters, formatter) then
+      table.insert(all_formatters, formatter)
     end
+  end
 end
 
-require("mason-nvim-lint").setup({
-    ensure_installed = all_linters,
-    automatic_installation = false,
-})
+-- Set up mason-conform to ensure installation
+mason_conform.setup {
+  ensure_installed = all_formatters,
+  automatic_installation = false,
+}

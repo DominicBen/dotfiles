@@ -1,4 +1,29 @@
 return {
+  {
+    "zbirenbaum/copilot.lua",
+    event = "InsertEnter",
+    config = function()
+      require("copilot").setup {
+        suggestion = { enabled = false },
+        panel = { enabled = false },
+      }
+    end,
+  },
+
+  {
+    "zbirenbaum/copilot-cmp",
+    event = "InsertEnter",
+    dependencies = { "copilot.lua" },
+    config = function()
+      require("copilot_cmp").setup()
+    end,
+  },
+  {
+    "hrsh7th/nvim-cmp",
+    config = function()
+      require "configs.cmp"
+    end,
+  },
 
   {
     "kndndrj/nvim-dbee",
@@ -75,6 +100,15 @@ return {
     end,
   },
   {
+    "zapling/mason-conform.nvim",
+    lazy = false,
+    dependencies = { "conform.nvim" },
+    config = function()
+      require "configs.mason-conform"
+    end,
+  },
+
+  {
     "williamboman/mason-lspconfig.nvim",
     event = "VeryLazy",
     dependencies = { "nvim-lspconfig" },
@@ -119,18 +153,19 @@ return {
         "rust",
       },
     },
-    {
-      "nvim-tree/nvim-tree.lua",
-      lazy = false, -- ensure it's not lazy-loaded
-      config = function()
-        require("nvim-tree").setup {
-          -- your existing setup options
-          hijack_cursor = true,
-          view = {
-            width = 30,
-          },
-        }
-      end,
-    },
+  },
+  {
+    "nvim-tree/nvim-tree.lua",
+    lazy = false, -- ensure it's not lazy-loaded
+    config = function()
+      require "configs.tree"
+    end,
+  },
+  {
+    "windwp/nvim-ts-autotag",
+    ft = { "html", "xml", "javascript", "typescript", "javascriptreact", "typescriptreact", "svelte", "vue" },
+    config = function()
+      require("nvim-ts-autotag").setup()
+    end,
   },
 }

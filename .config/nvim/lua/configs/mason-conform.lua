@@ -1,31 +1,33 @@
--- mason-conform.lua
-local mason_registry = require("mason-registry")
-local conform_config = require("configs.conform") -- Adjust path as needed
+local conform = require "conform"
+local mason_conform = require "mason-conform"
 
-local formatters_by_ft = conform_config.formatters_by_ft
+-- List of formatters to ignore during install
+local ignore_install = {
+  -- Example: "prettierd",
+}
 
--- Collect unique formatter names
-local all_formatters = {}
-for _, formatters in pairs(formatters_by_ft) do
-  for _, f in ipairs(formatters) do
-    all_formatters[f] = true
-  end
-end
-
--- Install all formatters via Mason if not already installed
-for formatter, _ in pairs(all_formatters) do
-  if mason_registry.has_package(formatter) then
-    local pkg = mason_registry.get_package(formatter)
-    if not pkg:is_installed() then
-      vim.schedule(function()
-        vim.notify("Installing missing formatter: " .. formatter, vim.log.levels.INFO)
-        pkg:install()
-      end)
+-- Helper function to check if a table contains a value
+local function table_contains(tbl, value)
+  for _, v in ipairs(tbl) do
+    if v == value then
+      return true
     end
-  else
-    vim.schedule(function()
-      vim.notify("⚠ Formatter '" .. formatter .. "' not found in Mason registry", vim.log.levels.WARN)
-    end)
+  end
+  return false
+end
+
+-- Build a list of formatters to install, minus the ignored ones
+local all_formatters = {}
+for _, formatters in pairs(conform.formatters_by_ft) do
+  for _, formatter in ipairs(formatters) do
+    if not table_contains(ignore_install, formatter) and not table_contains(all_formatters, formatter) then
+      table.insert(all_formatters, formatter)
+    end
   end
 end
 
+-- Set up mason-conform to ensure installation
+mason_conform.setup {
+  ensure_installed = all_formatters,
+  automatic_installation = false,
+}
