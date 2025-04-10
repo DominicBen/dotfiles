@@ -204,3 +204,10 @@ zstyle ':completion:*' verbose true
 #
 # zcompile ~/.zshrc
 fetch
+
+# fnm
+FNM_PATH="/home/golgi/.local/share/fnm"
+if [ -d "$FNM_PATH" ]; then
+  export PATH="/home/golgi/.local/share/fnm:$PATH"
+  eval "`fnm env`"
+fi

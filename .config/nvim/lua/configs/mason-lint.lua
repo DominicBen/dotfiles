@@ -1,9 +1,9 @@
-local conform = require "conform"
-local mason_conform = require "mason"
+local lint = require "lint"
+local mason_lint = require "mason-nvim-lint" -- or replace with actual `mason-nvim-lint` if you're using it
 
--- List of formatters to ignore during install
+-- List of linters to ignore during install
 local ignore_install = {
-  -- Example: "prettierd",
+  -- Example: "eslint",
 }
 
 -- Helper function to check if a table contains a value
@@ -16,18 +16,19 @@ local function table_contains(tbl, value)
   return false
 end
 
--- Build a list of formatters to install, minus the ignored ones
-local all_formatters = {}
-for _, formatters in pairs(conform.formatters_by_ft) do
-  for _, formatter in ipairs(formatters) do
-    if not table_contains(ignore_install, formatter) and not table_contains(all_formatters, formatter) then
-      table.insert(all_formatters, formatter)
+-- Build a list of linters to install, minus the ignored ones
+local all_linters = {}
+for _, linters in pairs(lint.linters_by_ft) do
+  for _, linter in ipairs(linters) do
+    print(linter)
+    if not table_contains(ignore_install, linter) and not table_contains(all_linters, linter) then
+      table.insert(all_linters, linter)
     end
   end
 end
 
--- Set up mason-conform to ensure installation
-mason_conform.setup {
-  ensure_installed = all_formatters,
-  automatic_installation = false,
+-- Set up mason to ensure installation of linters
+mason_lint.setup {
+  ensure_installed = all_linters,
+  automatic_installation = true,
 }

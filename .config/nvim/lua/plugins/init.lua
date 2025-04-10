@@ -117,13 +117,6 @@ return {
     end,
   },
   {
-    "williamboman/mason.nvim",
-    config = function()
-      require("mason").setup()
-      require("configs.mason-conform") -- this runs your auto-installer
-    end,
-  },
-  {
     "rshkarin/mason-nvim-lint",
     event = "VeryLazy",
     dependencies = { "nvim-lint" },
@@ -163,7 +156,17 @@ return {
   },
   {
     "windwp/nvim-ts-autotag",
-    ft = { "html", "xml", "javascript", "typescript", "javascriptreact", "typescriptreact", "svelte", "vue" },
+    ft = {
+      "html",
+      "htmldjango",
+      "xml",
+      "javascript",
+      "typescript",
+      "javascriptreact",
+      "typescriptreact",
+      "svelte",
+      "vue",
+    },
     config = function()
       require("nvim-ts-autotag").setup()
     end,
