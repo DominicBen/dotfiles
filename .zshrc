@@ -12,7 +12,7 @@
 # ==========================================
 export PATH="$HOME/.local/bin:$PATH"
 export PATH="$PATH:/mnt/c/Users/DMAN/.wsl-tools"
-
+export PIP_BREAK_SYSTEM_PACKAGES=1
 # ==========================================
 # Plugin Sourcing
 # ==========================================

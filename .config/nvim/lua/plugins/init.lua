@@ -83,6 +83,13 @@ return {
     end,
   },
   {
+    "williamboman/mason.nvim",
+    config = function()
+      require("mason").setup()
+      require("configs.mason-conform") -- this runs your auto-installer
+    end,
+  },
+  {
     "rshkarin/mason-nvim-lint",
     event = "VeryLazy",
     dependencies = { "nvim-lint" },
