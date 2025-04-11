@@ -19,6 +19,25 @@ return {
     end,
   },
   {
+    {
+      "CopilotC-Nvim/CopilotChat.nvim",
+      lazy = false,
+      dependencies = {
+        { "zbirenbaum/copilot.lua" }, -- or zbirenbaum/copilot.lua
+        { "nvim-lua/plenary.nvim", branch = "master" }, -- for curl, log and async functions
+      },
+      build = "make tiktoken", -- Only on MacOS or Linux
+      opts = {
+        question_header = " User ", -- Header to use for user questions
+        answer_header = "ﮧ Copilot ", -- Header to use for AI answers
+        error_header = " Error ", -- Header to use for errors
+        separator = "─", -- Separator to use in chat
+      },
+      -- See Commands section for default commands if you want to lazy load on them
+    },
+  },
+
+  {
     "hrsh7th/nvim-cmp",
     config = function()
       require "configs.cmp"
