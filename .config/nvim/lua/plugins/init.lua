@@ -158,6 +158,17 @@ return {
   {
     "windwp/nvim-ts-autotag",
     lazy = false, -- ensure it's not lazy-loaded
+    ft = {
+      "html",
+      "htmldjango",
+      "xml",
+      "javascript",
+      "typescript",
+      "javascriptreact",
+      "typescriptreact",
+      "svelte",
+      "vue",
+    },
     config = function()
       require("nvim-ts-autotag").setup {
         filetypes = {

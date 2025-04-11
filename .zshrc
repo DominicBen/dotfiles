@@ -12,7 +12,7 @@
 # ==========================================
 export PATH="$HOME/.local/bin:$PATH"
 export PATH="$PATH:/mnt/c/Users/DMAN/.wsl-tools"
-
+export PIP_BREAK_SYSTEM_PACKAGES=1
 # ==========================================
 # Plugin Sourcing
 # ==========================================
@@ -212,3 +212,10 @@ zstyle ':completion:*' verbose true
 #
 # zcompile ~/.zshrc
 fetch
+
+# fnm
+FNM_PATH="/home/golgi/.local/share/fnm"
+if [ -d "$FNM_PATH" ]; then
+  export PATH="/home/golgi/.local/share/fnm:$PATH"
+  eval "`fnm env`"
+fi
