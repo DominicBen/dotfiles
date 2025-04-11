@@ -137,6 +137,7 @@ return {
         "cpp",
         "json",
         "html",
+        "htmldjango",
         "css",
         "markdown",
         "yaml",
@@ -156,9 +157,29 @@ return {
   },
   {
     "windwp/nvim-ts-autotag",
-    ft = { "html", "xml", "javascript", "typescript", "javascriptreact", "typescriptreact", "svelte", "vue" },
+    lazy = false, -- ensure it's not lazy-loaded
     config = function()
-      require("nvim-ts-autotag").setup()
+      require("nvim-ts-autotag").setup {
+        filetypes = {
+          "html",
+          "javascript",
+          "typescript",
+          "javascriptreact",
+          "typescriptreact",
+          "svelte",
+          "vue",
+          "tsx",
+          "jsx",
+          "rescript",
+          "xml",
+          "php",
+          "markdown",
+          "glimmer",
+          "handlebars",
+          "hbs",
+          "htmldjango", -- 👈 Add this
+        },
+      }
     end,
   },
 }

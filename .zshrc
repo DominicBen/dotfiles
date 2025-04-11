@@ -111,16 +111,24 @@ alias neofetch='fastfetch'
 alias fetch='fastfetch'
 extract() {
   if [[ -f "$1" ]]; then
+    # Remove common archive extensions to get folder name
+    local folder="${1%.*}"
+    folder="${folder%.tar}"  # Handles .tar.gz or .tar.xz
+
+    mkdir -p "$folder"  # Create target folder if it doesn't exist
+
     case "$1" in
-      *.tar) tar -xf "$1" ;;
-      *.tar.gz|*.tgz) tar -xzf "$1" ;;
-      *.zip) unzip "$1" ;;
-      *) echo "Unsupported file type" ;;
+      *.tar) tar -xf "$1" -C "$folder" ;;
+      *.tar.gz|*.tgz) tar -xzf "$1" -C "$folder" ;;
+      *.tar.xz|*.txz) tar -xJf "$1" -C "$folder" ;;
+      *.zip) unzip -d "$folder" "$1" ;;
+      *) echo "Unsupported file type: $1" ;;
     esac
   else
     echo "File not found: $1"
   fi
 }
+
 alias matrix='cmatrix'
 alias clock='tty-clock'
 # ==========================================
