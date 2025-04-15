@@ -5,7 +5,12 @@ require "nvchad.autocmds"
 vim.api.nvim_create_autocmd("TermOpen", {
   pattern = "*",
   callback = function()
-    vim.opt_local.buflisted = false
+    local bufnr = vim.api.nvim_get_current_buf()
+    local buftype = vim.api.nvim_buf_get_option(bufnr, "buftype")
+    local buflisted = vim.fn.buflisted(bufnr)
+
+    -- Mark disqualified if it's not a normal file buffer
+    vim.w.is_disqualified_window = (buftype ~= "" or buflisted == 0)
   end,
 })
 
