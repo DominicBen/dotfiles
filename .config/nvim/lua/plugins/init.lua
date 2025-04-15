@@ -212,4 +212,31 @@ return {
       }
     end,
   },
+
+  {
+    "nvim-telescope/telescope.nvim",
+    opts = {
+      defaults = {
+        get_selection_window = function()
+          local cur_win = vim.api.nvim_get_current_win()
+          local cur_buf = vim.api.nvim_win_get_buf(cur_win)
+          local buftype = vim.api.nvim_buf_get_option(cur_buf, "buftype")
+
+          if buftype == "" then
+            return cur_win
+          end
+
+          -- Fallback: find another window with a normal buffer
+          for _, win in ipairs(vim.api.nvim_list_wins()) do
+            local buf = vim.api.nvim_win_get_buf(win)
+            if vim.api.nvim_buf_get_option(buf, "buftype") == "" then
+              return win
+            end
+          end
+
+          return cur_win
+        end,
+      },
+    },
+  },
 }
