@@ -4,9 +4,9 @@ local map = vim.keymap.set
 map("n", ";", ":", { desc = "CMD enter command mode" })
 map("i", "jk", "<ESC>")
 
---
 -- map({ "n", "i", "v" }, "<C-s>", "<cmd> w <cr>")
-
+-- Ctrl Backspace
+map("i", "<C-BS>", "<C-w>", { desc = "Delete whole word in insert mode" })
 -- Comment
 map("n", "<C-/>", "gcc", { desc = "toggle comment", remap = true })
 map("v", "<C-/>", "gc", { desc = "toggle comment", remap = true }) -- Move line up (Alt+Up)
@@ -18,6 +18,28 @@ map("v", "<M-Up>", ":m '<-2<CR>gv=gv", { desc = "Move selection up", remap = tru
 map("n", "<M-Down>", ":m .+1<CR>==", { desc = "Move line down", remap = true })
 map("v", "<M-Down>", ":m '>+1<CR>gv=gv", { desc = "Move selectea down", remap = true })
 
+map({ "n", "x" }, "<leader>cc", function()
+  require("CopilotChat").toggle()
+end, { desc = "Toggle Copilot Chat" })
+-- Visual mode: prompt Copilot about selected code
+local chat = require "CopilotChat"
+local prompts = chat.prompts()
+
+-- Visual mode keybinds for Copilot commands
+local copilot_commands = {
+  ce = { cmd = "CopilotChatExplain", desc = "Copilot: Explain code" },
+  cf = { cmd = "CopilotChatFix", desc = "Copilot: Fix code" },
+  cr = { cmd = "CopilotChatReview", desc = "Copilot: Review code" },
+  ct = { cmd = "CopilotChatTests", desc = "Copilot: Test code" },
+  cd = { cmd = "CopilotChatDoc", desc = "Copilot: Document code" },
+  co = { cmd = "CopilotChatOptimize", desc = "Copilot: Optimize code" },
+}
+
+for key, value in pairs(copilot_commands) do
+  map({ "x", "v" }, "<leader>" .. key, function()
+    vim.cmd(value.cmd)
+  end, { desc = value.desc })
+end
 -- DAP (Debug Adapter Protocol) keymaps
 local opts = { noremap = true, silent = true }
 
