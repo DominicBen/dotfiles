@@ -33,6 +33,7 @@ local copilot_commands = {
   ct = { cmd = "CopilotChatTests", desc = "Copilot: Test code" },
   cd = { cmd = "CopilotChatDoc", desc = "Copilot: Document code" },
   co = { cmd = "CopilotChatOptimize", desc = "Copilot: Optimize code" },
+  cg = { cmd = "CopilotChatCommit", desc = "Copilot: Write Commit" },
 }
 
 for key, value in pairs(copilot_commands) do
