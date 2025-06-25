@@ -5,6 +5,42 @@
 # if command -v tmux &>/dev/null; then
 #   test -z "$TMUX" && exec tmux
 # fi
+check_git_updates() {
+  local repos=(~/Repos ~/.dotfiles)
+
+  echo "🔍 Checking Git repositories for updates..."
+
+  for base in "${repos[@]}"; do
+    if [[ -d "$base/.git" ]]; then
+      dirs=("$base")
+    else
+      dirs=("$base"/*)
+    fi
+
+    for dir in "${dirs[@]}"; do
+      [[ -d "$dir/.git" ]] || continue
+      cd "$dir" || continue
+
+      git fetch --quiet
+
+      local local_ref=$(git rev-parse @)
+      local remote_ref=$(git rev-parse @{u} 2>/dev/null)
+      local base_ref=$(git merge-base @ @{u} 2>/dev/null)
+
+      if [[ "$local_ref" == "$remote_ref" ]]; then
+        continue
+      elif [[ "$local_ref" == "$base_ref" ]]; then
+        echo "🔄 $(basename "$dir") has updates to pull"
+      elif [[ "$remote_ref" == "$base_ref" ]]; then
+        echo "🔼 $(basename "$dir") has commits to push"
+      else
+        echo "⚠️  $(basename "$dir") has diverged"
+      fi
+    done
+  done
+}
+
+# Run it when a new shell session starts (optional: guard to avoid slowdown on login)
 
 
 # ==========================================
