@@ -133,7 +133,8 @@ fi
 alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
-
+#ShellGPT
+alias ask='sgpt'
 #fast node manager
 alias nvm='fnm'
 # Python and Vim Aliases

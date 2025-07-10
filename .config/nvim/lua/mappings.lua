@@ -82,3 +82,24 @@ end, { desc = "Terminate debugging" })
 map("n", "<leader>du", function()
   dapui.toggle()
 end, { desc = "Toggle DAP UI" })
+
+map("n", "K", function()
+  local bufnr = vim.api.nvim_get_current_buf()
+  local cursor = vim.api.nvim_win_get_cursor(0)
+  local lnum = cursor[1] - 1
+
+  -- Get diagnostics for current line
+  local diagnostics = vim.diagnostic.get(bufnr, { lnum = lnum })
+
+  if #diagnostics > 0 then
+    -- Show diagnostic popup if there's a warning/error on this line
+    vim.diagnostic.open_float(nil, {
+      border = "rounded",
+      focusable = false,
+      scope = "line",
+    })
+  else
+    -- Otherwise show hover docs
+    vim.lsp.buf.hover()
+  end
+end, { desc = "Show diagnostics or hover" })

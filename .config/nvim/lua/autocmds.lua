@@ -71,3 +71,7 @@ vim.api.nvim_create_user_command("Windows", function()
     print(string.format("Window ID: %d | Buffer ID: %d | File: %s", win, buf, name))
   end
 end, {})
+
+vim.deprecate = function(_, _, _, _)
+  -- Do nothing, suppress all deprecation warnings
+end
