@@ -5,7 +5,7 @@ local lspconfig = require "lspconfig"
 local nvlsp = require "nvchad.configs.lspconfig"
 
 local servers = {
-  -- "lua_ls",
+  "lua_ls",
   "cssls",
   "pyright",
   "html",

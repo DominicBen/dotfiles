@@ -36,6 +36,29 @@ return {
       -- See Commands section for default commands if you want to lazy load on them
     },
   },
+  {
+    "mg979/vim-visual-multi",
+    lazy = false,
+    init = function()
+      vim.g.VM_default_mappings = 0
+      vim.g.VM_maps = {
+        ["Find Under"] = "", -- disable Ctrl+n default
+      }
+    end,
+    config = function()
+      local keymap = vim.keymap.set
+
+      -- Normal mode mappings
+      keymap("n", "<leader>gb", "<Plug>(VM-Find-Under)", { remap = true, desc = "Find Under Cursor" })
+      keymap("n", "<leader>a", "<Plug>(VM-Select-All)", { desc = "Select All Matches" })
+      keymap("n", "<leader>r", "<Plug>(VM-Start-Regex-Search)", { desc = "Start Regex Search" })
+
+      -- Visual mode mappings
+      keymap("x", "<leader>gb", "<Plug>(VM-Visual-All)", { desc = "Select All in Visual" })
+      keymap("x", "<leader>n", "<Plug>(VM-Visual-Find)", { desc = "Find Selection" })
+      keymap("x", "<leader>r", "<Plug>(VM-Visual-Regex)", { desc = "Regex Search in Visual" })
+    end,
+  },
 
   {
     "hrsh7th/nvim-cmp",
@@ -130,6 +153,9 @@ return {
   {
     "williamboman/mason-lspconfig.nvim",
     event = "VeryLazy",
+    cond = function()
+      return not vim.g.vscode
+    end,
     dependencies = { "nvim-lspconfig" },
     config = function()
       require "configs.mason-lspconfig"
