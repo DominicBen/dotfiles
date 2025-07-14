@@ -21,6 +21,8 @@ map("v", "<M-Down>", ":m '>+1<CR>gv=gv", { desc = "Move selectea down", remap = 
 map({ "n", "x" }, "<leader>cc", function()
   require("CopilotChat").toggle()
 end, { desc = "Toggle Copilot Chat" })
+-- Telescope Show diagnostics
+map("n", "<leader>fd", "<cmd>Telescope diagnostics<CR>", { desc = "Show Diagnostics" })
 -- Visual mode: prompt Copilot about selected code
 local chat = require "CopilotChat"
 local prompts = chat.prompts()
