@@ -34,4 +34,5 @@ require "options"
 vim.schedule(function()
   require "autocmds"
   require "mappings"
+  require "vscodeConfig"
 end)

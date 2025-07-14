@@ -31,3 +31,11 @@ if \[ -d \~/.bashrc.d \]; then
               fi        
          done fi 
 unset rc
+
+# fnm
+FNM_PATH="/home/golgi/.local/share/fnm"
+if [ -d "$FNM_PATH" ]; then
+  export PATH="$FNM_PATH:$PATH"
+  eval "`fnm env`"
+fi
+. "$HOME/.cargo/env"
