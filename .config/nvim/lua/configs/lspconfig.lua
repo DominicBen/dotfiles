@@ -19,11 +19,13 @@ lspconfig.servers = servers
 
 -- lsps with default config
 for _, lsp in ipairs(servers) do
-  lspconfig[lsp].setup {
-    on_attach = nvlsp.on_attach,
-    on_init = nvlsp.on_init,
-    capabilities = nvlsp.capabilities,
-  }
+  if lspconfig[lsp] and not lspconfig[lsp].manager then
+    lspconfig[lsp].setup {
+      on_attach = nvlsp.on_attach,
+      on_init = nvlsp.on_init,
+      capabilities = nvlsp.capabilities,
+    }
+  end
 end
 
 lspconfig.html.setup {
@@ -52,34 +54,6 @@ lspconfig.cssls.setup {
   on_attach = nvlsp.on_attach,
   capabilities = nvlsp.capabilities,
 }
--- lspconfig.lua_ls.setup {
---   on_attach = nvlsp.on_attach,
---   on_init = nvlsp.on_init,
---   capabilities = nvlsp.capabilities,
---   settings = {
---     Lua = {
---       runtime = {
---         version = "LuaJIT", -- Neovim uses LuaJIT
---         path = vim.split(package.path, ";"),
---       },
---       diagnostics = {
---         globals = { "vim" },
---       },
---       workspace = {
---         library = {
---           vim.env.VIMRUNTIME,
---           "${3rd}/luv/library",
---           "${3rd}/busted/library",
---           vim.fn.stdpath "data" .. "/lazy/nvchad/types", -- helpful if you have NvChad types
---         },
---         checkThirdParty = false,
---       },
---       telemetry = {
---         enable = false,
---       },
---     },
---   },
--- }
 
 -- configuring single server, example: typescript
 -- lspconfig.ts_ls.setup {
