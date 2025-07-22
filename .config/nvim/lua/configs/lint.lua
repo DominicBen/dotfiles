@@ -14,6 +14,10 @@ lint.linters.luacheck.args = {
   "vim",
 }
 
+lint.linters.flake8.args = {
+  "--ignore=E501",
+}
+
 vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost", "InsertLeave" }, {
   callback = function()
     lint.try_lint()

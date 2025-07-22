@@ -1,89 +1,49 @@
--- load defaults i.e lua_lsp
+-- Load NvChad defaults
 require("nvchad.configs.lspconfig").defaults()
-
-local lspconfig = require "lspconfig"
 local nvlsp = require "nvchad.configs.lspconfig"
+local lspconfig = require "lspconfig"
 
-local servers = {
-  "lua_ls",
-  "cssls",
-  "pyright",
-  "html",
-  "marksman",
-  "ts_ls",
-  "eslint",
+-- Set global LSP defaults for all servers
+-- vim.lsp.config("*", {
+--   on_attach = nvlsp.on_attach,
+--   on_init = nvlsp.on_init,
+--   capabilities = nvlsp.capabilities,
+-- })
+
+-- Define per-server config overrides
+local serverConfigs = {
+  lua_ls = {
+    settings = {
+      Lua = {
+        diagnostics = { globals = { "vim" } },
+      },
+    },
+  },
+  cssls = {
+    filetypes = { "css", "scss", "less" },
+  },
+  html = {
+    filetypes = { "html", "htmldjango" },
+    init_options = {
+      embeddedLanguages = {
+        javascript = true,
+        css = true,
+      },
+      provideFormatter = false,
+    },
+  },
+  tsserver = {
+    filetypes = { "javascript", "typescript", "javascriptreact", "typescriptreact" },
+  },
+  pyright = {},
+  eslint = {},
 }
-lspconfig.servers = servers
--- #ffffff
--- EXAMPLE
-
--- lsps with default config
-for _, lsp in ipairs(servers) do
-  lspconfig[lsp].setup {
-    on_attach = nvlsp.on_attach,
-    on_init = nvlsp.on_init,
-    capabilities = nvlsp.capabilities,
-  }
+-- Register each config
+for name, config in pairs(serverConfigs) do
+  vim.lsp.config(name, config)
+  -- print name
+  print("LSP server configured: " .. name)
 end
 
-lspconfig.html.setup {
-  filetypes = { "html", "htmldjango" },
-  on_attach = nvlsp.on_attach,
-  on_init = nvlsp.on_init,
-  capabilities = nvlsp.capabilities,
-  init_options = {
-    embeddedLanguages = {
-      javascript = true,
-      css = true,
-    },
-    provideFormatter = false, -- keep false if you use prettier or external formatter
-  },
-}
-
--- test
-lspconfig.ts_ls.setup {
-  filetypes = { "javascript", "typescript", "javascriptreact", "typescriptreact" },
-  on_attach = nvlsp.on_attach,
-  capabilities = nvlsp.capabilities,
-}
-
-lspconfig.cssls.setup {
-  filetypes = { "css", "scss", "less" },
-  on_attach = nvlsp.on_attach,
-  capabilities = nvlsp.capabilities,
-}
--- lspconfig.lua_ls.setup {
---   on_attach = nvlsp.on_attach,
---   on_init = nvlsp.on_init,
---   capabilities = nvlsp.capabilities,
---   settings = {
---     Lua = {
---       runtime = {
---         version = "LuaJIT", -- Neovim uses LuaJIT
---         path = vim.split(package.path, ";"),
---       },
---       diagnostics = {
---         globals = { "vim" },
---       },
---       workspace = {
---         library = {
---           vim.env.VIMRUNTIME,
---           "${3rd}/luv/library",
---           "${3rd}/busted/library",
---           vim.fn.stdpath "data" .. "/lazy/nvchad/types", -- helpful if you have NvChad types
---         },
---         checkThirdParty = false,
---       },
---       telemetry = {
---         enable = false,
---       },
---     },
---   },
--- }
-
--- configuring single server, example: typescript
--- lspconfig.ts_ls.setup {
---   on_attach = nvlsp.on_attach,
---   on_init = nvlsp.on_init,
---   capabilities = nvlsp.capabilities,
--- }
+-- Enable all servers
+vim.lsp.enable(vim.tbl_keys(serverConfigs))
