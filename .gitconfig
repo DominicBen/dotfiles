@@ -10,3 +10,5 @@
 	directory = /media/nextcloud/Code/BankAccountProject
 [pull]
 	rebase = false
+[http]
+	postBuffer = 524288000

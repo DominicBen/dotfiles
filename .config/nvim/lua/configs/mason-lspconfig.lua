@@ -1,27 +1,25 @@
-local lspconfig = package.loaded["lspconfig"]
+local mason_lspconfig = require "mason-lspconfig"
 
--- List of servers to ignore during install
+-- Pull your server list directly from your serverConfigs
+local user_server_configs = {
+  "lua_ls",
+  "cssls",
+  "html",
+  "ts_ls",
+  "pyright",
+  "eslint",
+}
+
+-- Optional: list of servers to *exclude* from installation
 local ignore_install = {}
 
--- Helper function to find if value is in table.
-local function table_contains(table, value)
-    for _, v in ipairs(table) do
-        if v == value then
-            return true
-        end
-    end
-    return false
-end
+-- Filter servers: include only those not in ignore_install
+local servers_to_install = vim.tbl_filter(function(server)
+  return not vim.tbl_contains(ignore_install, server)
+end, user_server_configs)
 
--- Build a list of lsp servers to install minus the ignored list.
-local all_servers = {}
-for _, s in ipairs(lspconfig.servers) do
-    if not table_contains(ignore_install, s) then
-        table.insert(all_servers, s)
-    end
-end
-
-require("mason-lspconfig").setup({
-    ensure_installed = all_servers,
-    automatic_installation = false,
-})
+-- Setup Mason LSP
+mason_lspconfig.setup {
+  ensure_installed = servers_to_install,
+  automatic_installation = false, -- or true if you want lazy install
+}
