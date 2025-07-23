@@ -6,7 +6,6 @@ local nomap = vim.keymap.del
 local map = vim.keymap.set
 map("n", ";", ":", { desc = "CMD enter command mode" })
 map("i", "jk", "<ESC>")
-
 -- map({ "n", "i", "v" }, "<C-s>", "<cmd> w <cr>")
 -- Ctrl Backspace
 map("i", "<C-BS>", "<C-w>", { desc = "Delete whole word in insert mode" })
@@ -20,6 +19,11 @@ map("v", "<M-Up>", ":m '<-2<CR>gv=gv", { desc = "Move selection up", remap = tru
 -- Move line down (Alt+Down)
 map("n", "<M-Down>", ":m .+1<CR>==", { desc = "Move line down", remap = true })
 map("v", "<M-Down>", ":m '>+1<CR>gv=gv", { desc = "Move selectea down", remap = true })
+-- Move line up/down (Alt+K/Alt+J)
+map("n", "<M-k>", ":m .-2<CR>==", { desc = "Move line up", remap = true })
+map("v", "<M-k>", ":m '<-2<CR>gv=gv", { desc = "Move selection up", remap = true })
+map("n", "<M-j>", ":m .+1<CR>==", { desc = "Move line down", remap = true })
+map("v", "<M-j>", ":m '>+1<CR>gv=gv", { desc = "Move selection down", remap = true })
 
 map({ "n", "x" }, "<leader>cc", function()
   require("CopilotChat").toggle()

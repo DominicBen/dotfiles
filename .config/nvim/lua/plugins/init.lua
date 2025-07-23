@@ -4,18 +4,21 @@ return {
     event = "InsertEnter",
     config = function()
       require("copilot").setup {
-        suggestion = { enabled = false },
+        suggestion = {
+          enabled = true,
+          auto_trigger = true,
+          debounce = 75,
+          keymap = {
+            accept = "<M-l>",
+            accept_word = false,
+            accept_line = false,
+            next = "<C-n>",
+            prev = "<C-p>",
+            dismiss = "<C-e>",
+          },
+        },
         panel = { enabled = false },
       }
-    end,
-  },
-
-  {
-    "zbirenbaum/copilot-cmp",
-    event = "InsertEnter",
-    dependencies = { "copilot.lua" },
-    config = function()
-      require("copilot_cmp").setup()
     end,
   },
   {
@@ -50,13 +53,13 @@ return {
 
       -- Normal mode mappings
       keymap("n", "<leader>gb", "<Plug>(VM-Find-Under)", { remap = true, desc = "Find Under Cursor" })
-      keymap("n", "<leader>a", "<Plug>(VM-Select-All)", { desc = "Select All Matches" })
-      keymap("n", "<leader>r", "<Plug>(VM-Start-Regex-Search)", { desc = "Start Regex Search" })
+      keymap("n", "<leader>ga", "<Plug>(VM-Select-All)", { desc = "Select All Matches" })
+      keymap("n", "<leader>gr", "<Plug>(VM-Start-Regex-Search)", { desc = "Start Regex Search" })
 
       -- Visual mode mappings
       keymap("x", "<leader>gb", "<Plug>(VM-Visual-All)", { desc = "Select All in Visual" })
-      keymap("x", "<leader>n", "<Plug>(VM-Visual-Find)", { desc = "Find Selection" })
-      keymap("x", "<leader>r", "<Plug>(VM-Visual-Regex)", { desc = "Regex Search in Visual" })
+      keymap("x", "<leader>gn", "<Plug>(VM-Visual-Find)", { desc = "Find Selection" })
+      keymap("x", "<leader>gr", "<Plug>(VM-Visual-Regex)", { desc = "Regex Search in Visual" })
     end,
   },
 
@@ -149,7 +152,6 @@ return {
       require "configs.mason-conform"
     end,
   },
-
   {
     "williamboman/mason-lspconfig.nvim",
     event = "VeryLazy",

@@ -2,12 +2,12 @@ local M = {}
 
 M.override = {
   Normal = {
-    bg = "black",
+    bg = { "black", 2 },
   },
 }
 M.add = {
   NormalNC = {
-    bg = { "black", 2 },
+    bg = "black",
   },
 }
 
