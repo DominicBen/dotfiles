@@ -1,44 +1,5 @@
-return {
-  {
-    "zbirenbaum/copilot.lua",
-    event = "InsertEnter",
-    config = function()
-      require("copilot").setup {
-        suggestion = {
-          enabled = true,
-          auto_trigger = true,
-          debounce = 75,
-          keymap = {
-            accept = "<M-l>",
-            accept_word = false,
-            accept_line = false,
-            next = "<C-n>",
-            prev = "<C-p>",
-            dismiss = "<C-e>",
-          },
-        },
-        panel = { enabled = false },
-      }
-    end,
-  },
-  {
-    {
-      "CopilotC-Nvim/CopilotChat.nvim",
-      lazy = false,
-      dependencies = {
-        { "zbirenbaum/copilot.lua" }, -- or zbirenbaum/copilot.lua
-        { "nvim-lua/plenary.nvim", branch = "master" }, -- for curl, log and async functions
-      },
-      build = "make tiktoken", -- Only on MacOS or Linux
-      opts = {
-        question_header = " User ", -- Header to use for user questions
-        answer_header = "ﮧ Copilot ", -- Header to use for AI answers
-        error_header = " Error ", -- Header to use for errors
-        separator = "─", -- Separator to use in chat
-      },
-      -- See Commands section for default commands if you want to lazy load on them
-    },
-  },
+local map = vim.keymap.set
+local M = {
   {
     "mg979/vim-visual-multi",
     lazy = false,
@@ -268,3 +229,68 @@ return {
     },
   },
 }
+
+if not vim.g.vscode then
+  vim.list_extend(M, {
+    {
+      "zbirenbaum/copilot.lua",
+      event = "InsertEnter",
+      config = function()
+        require("copilot").setup {
+          suggestion = {
+            enabled = true,
+            auto_trigger = true,
+            debounce = 75,
+            keymap = {
+              accept = "<M-l>",
+              accept_word = false,
+              accept_line = false,
+              next = "<C-n>",
+              prev = "<C-p>",
+              dismiss = "<C-e>",
+            },
+          },
+          panel = { enabled = false },
+        }
+      end,
+    },
+    {
+      "CopilotC-Nvim/CopilotChat.nvim",
+      lazy = false,
+      dependencies = {
+        { "zbirenbaum/copilot.lua" },
+        { "nvim-lua/plenary.nvim", branch = "master" },
+      },
+      build = "make tiktoken",
+      opts = {
+        question_header = " User ",
+        answer_header = "ﮧ Copilot ",
+        error_header = " Error ",
+        separator = "─",
+      },
+      config = function(_, opts)
+        require("CopilotChat").setup(opts)
+        map({ "n", "x" }, "<leader>cc", function()
+          vim.cmd "CopilotChatToggle"
+        end, { desc = "Toggle Copilot Chat" })
+        local copilot_commands = {
+          ce = { cmd = "CopilotChatExplain", desc = "Copilot: Explain code" },
+          cf = { cmd = "CopilotChatFix", desc = "Copilot: Fix code" },
+          cr = { cmd = "CopilotChatReview", desc = "Copilot: Review code" },
+          ct = { cmd = "CopilotChatTests", desc = "Copilot: Test code" },
+          cd = { cmd = "CopilotChatDoc", desc = "Copilot: Document code" },
+          co = { cmd = "CopilotChatOptimize", desc = "Copilot: Optimize code" },
+          cg = { cmd = "CopilotChatCommit", desc = "Copilot: Write Commit" },
+        }
+
+        for key, value in pairs(copilot_commands) do
+          vim.keymap.set({ "x", "v" }, "<leader>" .. key, function()
+            vim.cmd(value.cmd)
+          end, { desc = value.desc })
+        end
+      end,
+    },
+  })
+end
+
+return M
