@@ -11,7 +11,7 @@ vim.api.nvim_create_autocmd("BufReadPre", {
     local current_win = vim.api.nvim_get_current_win()
 
     local bufname = vim.api.nvim_buf_get_name(0)
-    print("Buffer name: " .. bufname .. " | Current window: " .. current_win)
+    -- print("Buffer name: " .. bufname .. " | Current window: " .. current_win)
 
     if is_utility_window(bufname) then
       for _, win in ipairs(vim.api.nvim_list_wins()) do
