@@ -42,7 +42,7 @@ local serverConfigs = {
 for name, config in pairs(serverConfigs) do
   vim.lsp.config(name, config)
   -- print name
-  print("LSP server configured: " .. name)
+  -- print("LSP server configured: " .. name)
 end
 
 -- Enable all servers

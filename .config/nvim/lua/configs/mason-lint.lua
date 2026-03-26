@@ -20,7 +20,7 @@ end
 local all_linters = {}
 for _, linters in pairs(lint.linters_by_ft) do
   for _, linter in ipairs(linters) do
-    print(linter)
+    -- print(linter)
     if not table_contains(ignore_install, linter) and not table_contains(all_linters, linter) then
       table.insert(all_linters, linter)
     end

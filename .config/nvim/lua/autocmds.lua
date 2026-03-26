@@ -68,7 +68,7 @@ vim.api.nvim_create_user_command("Windows", function()
     if name == "" then
       name = "[No Name]"
     end
-    print(string.format("Window ID: %d | Buffer ID: %d | File: %s", win, buf, name))
+    -- print(string.format("Window ID: %d | Buffer ID: %d | File: %s", win, buf, name))
   end
 end, {})
 

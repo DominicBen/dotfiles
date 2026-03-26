@@ -145,7 +145,7 @@ alias nv='nvim'
 alias htop='btop'
 #lazy git
 alias lg='lazygit'
-alias update='sudo apt upgrade -y && sudo apt update -y'
+alias update='sudo apt upgrade -y && sudo apt update -y && sudo apt autoremove -y'
 alias neofetch='fastfetch'
 alias fetch='fastfetch'
 extract() {
